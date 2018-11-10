@@ -126,11 +126,12 @@ cleanData <- fittedData %>%
   select(continent, country, clean)
 ```
 
-Now finally unnest the data frames, and reformat/rename things to create a cleaner data table with unnecessary data removed.
+Now finally unnest the data frames, and reformat/rename things to create a cleaner data table with unnecessary data removed. We remove rows and columns we don't need.
 ```{r}
 finalData <- cleanData %>%
   unnest(clean) %>%
-  mutate(term = recode(term, `(Intercept)` = 'intercept', `I(year - 1950)` = 'slope')) %>%
+  mutate(term = recode(term, `I(year - 1950)` = 'slope')) %>%
+  filter(term == 'slope') %>%
   select(continent, country, term, estimate)  %>%
   spread(key = term, value = estimate) 
 ```
@@ -150,4 +151,4 @@ europeOnly %>%
     ylab("Country")
 ```
 
-As can be seen from the plot, Norway seems to have the largest change iover time. Albania seems to have the smallest increase in GDP per capita over time.
+As can be seen from the plot, Norway seems to have the largest change in GDP per capita over time. Albania seems to have the smallest increase in GDP per capita over time.

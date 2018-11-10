@@ -150,12 +150,13 @@ cleanData <- fittedData %>%
   select(continent, country, clean)
 ```
 
-Now finally unnest the data frames, and reformat/rename things to create a cleaner data table with unnecessary data removed.
+Now finally unnest the data frames, and reformat/rename things to create a cleaner data table with unnecessary data removed. We remove rows and columns we don't need.
 
 ``` r
 finalData <- cleanData %>%
   unnest(clean) %>%
-  mutate(term = recode(term, `(Intercept)` = 'intercept', `I(year - 1950)` = 'slope')) %>%
+  mutate(term = recode(term, `I(year - 1950)` = 'slope')) %>%
+  filter(term == 'slope') %>%
   select(continent, country, term, estimate)  %>%
   spread(key = term, value = estimate) 
 ```
@@ -169,38 +170,38 @@ europeOnly <-finalData %>%
 knitr :: kable(europeOnly) # print table
 ```
 
-| continent | country                |   intercept|      slope|
-|:----------|:-----------------------|-----------:|----------:|
-| Europe    | Albania                |   1648.8580|   54.45792|
-| Europe    | Austria                |   4642.0331|  534.57231|
-| Europe    | Belgium                |   6216.7289|  463.86539|
-| Europe    | Bosnia and Herzegovina |    567.4949|   98.89099|
-| Europe    | Bulgaria               |   3207.6680|  107.67414|
-| Europe    | Croatia                |   4252.2524|  172.18508|
-| Europe    | Czech Republic         |   7202.2611|  227.72035|
-| Europe    | Denmark                |   8119.1980|  459.41108|
-| Europe    | Finland                |   4004.6552|  456.57856|
-| Europe    | France                 |   5921.3469|  437.70249|
-| Europe    | Germany                |   7388.7178|  446.37175|
-| Europe    | Greece                 |   2251.9241|  397.19026|
-| Europe    | Hungary                |   5443.2959|  184.57220|
-| Europe    | Iceland                |   5360.4583|  514.26997|
-| Europe    | Ireland                |  -1480.6764|  584.38246|
-| Europe    | Italy                  |   2762.5096|  457.04066|
-| Europe    | Montenegro             |   4521.6595|   91.06458|
-| Europe    | Netherlands            |   7255.8395|  491.28857|
-| Europe    | Norway                 |   5030.5045|  736.16278|
-| Europe    | Poland                 |   3626.3356|  162.38028|
-| Europe    | Portugal               |   1227.6609|  343.26885|
-| Europe    | Romania                |   4329.4899|  100.70102|
-| Europe    | Serbia                 |   6729.7368|   87.29873|
-| Europe    | Slovak Republic        |   4989.8264|  183.92218|
-| Europe    | Slovenia               |   4087.9520|  338.52983|
-| Europe    | Spain                  |   1040.1465|  440.32813|
-| Europe    | Sweden                 |   7436.2864|  423.96067|
-| Europe    | Switzerland            |  16001.1277|  375.36294|
-| Europe    | Turkey                 |   1187.6904|  111.24620|
-| Europe    | United Kingdom         |   7511.7968|  402.32801|
+| continent | country                |      slope|
+|:----------|:-----------------------|----------:|
+| Europe    | Albania                |   54.45792|
+| Europe    | Austria                |  534.57231|
+| Europe    | Belgium                |  463.86539|
+| Europe    | Bosnia and Herzegovina |   98.89099|
+| Europe    | Bulgaria               |  107.67414|
+| Europe    | Croatia                |  172.18508|
+| Europe    | Czech Republic         |  227.72035|
+| Europe    | Denmark                |  459.41108|
+| Europe    | Finland                |  456.57856|
+| Europe    | France                 |  437.70249|
+| Europe    | Germany                |  446.37175|
+| Europe    | Greece                 |  397.19026|
+| Europe    | Hungary                |  184.57220|
+| Europe    | Iceland                |  514.26997|
+| Europe    | Ireland                |  584.38246|
+| Europe    | Italy                  |  457.04066|
+| Europe    | Montenegro             |   91.06458|
+| Europe    | Netherlands            |  491.28857|
+| Europe    | Norway                 |  736.16278|
+| Europe    | Poland                 |  162.38028|
+| Europe    | Portugal               |  343.26885|
+| Europe    | Romania                |  100.70102|
+| Europe    | Serbia                 |   87.29873|
+| Europe    | Slovak Republic        |  183.92218|
+| Europe    | Slovenia               |  338.52983|
+| Europe    | Spain                  |  440.32813|
+| Europe    | Sweden                 |  423.96067|
+| Europe    | Switzerland            |  375.36294|
+| Europe    | Turkey                 |  111.24620|
+| Europe    | United Kingdom         |  402.32801|
 
 ``` r
 europeOnly %>%
@@ -213,4 +214,4 @@ europeOnly %>%
 
 ![](Homework6-Exercises_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
-As can be seen from the plot, Norway seems to have the largest change iover time. Albania seems to have the smallest increase in GDP per capita over time.
+As can be seen from the plot, Norway seems to have the largest change in GDP per capita over time. Albania seems to have the smallest increase in GDP per capita over time.
