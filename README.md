@@ -8,4 +8,4 @@ Here is a link to the R markdown file containing all data exploration done: [R m
 
 The corresponding standard markdown file is linked here: [Markdown file](https://github.com/STAT545-UBC-students/hw06-curtis77/blob/master/Homework6-Exercises.md)
 
-The folder links contains various plots used in the markdown file as png files. [Folder](https://github.com/STAT545-UBC-students/hw06-curtis77/tree/master/Gapminder-Exploration_files/figure-markdown_github)
+The folder links contains various plots used in the markdown file as png files. [Folder](https://github.com/STAT545-UBC-students/hw06-curtis77/tree/master/Homework6-Exercises_files/figure-markdown_github)
